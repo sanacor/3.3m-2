@@ -1,12 +1,11 @@
 chrome.runtime.onMessage.addListener(function(request, sender) {
   if (request.action == "getSource") {
-    message.innerText = request.source;
-    console.log("191.49\u33A1")
-    // var regex = new RegExp("[0-9]+(.[0-9]{2})?$");
-    var regex = new RegExp("191.49\u33A1");
-    console.log(message.innerText)
-    var match = regex.exec(message.innerText);
-    console.log(match[0]);   
+    var NUMERIC_REGEXP = /[-]{0,1}[\d]*[\.]{0,1}[\d]+\u33A1/g;
+    string_of_html = request.source;
+    var match = string_of_html.match(NUMERIC_REGEXP)
+    // https://stackoverflow.com/questions/1183903/regex-using-javascript-to-return-just-numbers
+    console.log(match);
+
   }
 });
 
