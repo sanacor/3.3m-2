@@ -16,13 +16,30 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
     for (i = 0; i < match.length; i++) {
       console.log("match[i]: "+match[i]);
       var p = new mTop(match[i]);
-      var node = document.createElement("LI");
-      var textnode = document.createTextNode(p.square_meter + " " + p.pyeong);
-      console.log("p.pyeong[i]: "+p.pyeong);
-      node.appendChild(textnode);
-      node.classList.add("list-group-item");
-      var element = document.getElementById("mTop");
-      element.appendChild(node);
+      // var node = document.createElement("LI");
+      // var textnode = document.createTextNode(p.square_meter + " " + p.pyeong);
+      // var tr_node = document.createElement("TR");
+      // var td_node_1 = document.createElement("TD").innerHTML = p.pyeong;
+      // var td_node_2 = document.createElement("TD").innerHTML = p.square_meter;
+
+      var table = document.getElementById("myTable");
+      var row = table.insertRow(-1);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      cell1.innerHTML =  p.square_meter;
+      cell2.innerHTML = p.pyeong;
+
+      cell1.style.textAlign = "right";
+      cell2.style.textAlign = "right";
+
+      // var element = document.getElementById("mTop");
+      // element.appendChild(tr_node);
+
+    
+      // node.appendChild(textnode);
+      // node.classList.add("list-group-item");
+      // var element = document.getElementById("mTop");
+      // element.appendChild(node);
     }
 
     
