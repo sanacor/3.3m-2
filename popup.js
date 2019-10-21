@@ -11,39 +11,47 @@ chrome.runtime.onMessage.addListener(function(request, sender) {
     string_of_html = request.source;
     var match = string_of_html.match(NUMERIC_REGEXP)
     // https://stackoverflow.com/questions/1183903/regex-using-javascript-to-return-just-numbers
-    console.log(match);
+
+    var mTop_dict = new Object();
+    var mTop_array = new Array();
 
     for (i = 0; i < match.length; i++) {
-      console.log("match[i]: "+match[i]);
       var p = new mTop(match[i]);
-      // var node = document.createElement("LI");
-      // var textnode = document.createTextNode(p.square_meter + " " + p.pyeong);
-      // var tr_node = document.createElement("TR");
-      // var td_node_1 = document.createElement("TD").innerHTML = p.pyeong;
-      // var td_node_2 = document.createElement("TD").innerHTML = p.square_meter;
+  
+      if (!(p.square_meter in mTop_dict)) {
+        mTop_dict[p.square_meter] = p.pyeong;
+      }
+     
+    }
+   
+    key_array = Object.keys(mTop_dict);
 
-      var table = document.getElementById("myTable");
-      var row = table.insertRow(-1);
-      var cell1 = row.insertCell(0);
-      var cell2 = row.insertCell(1);
-      cell1.innerHTML =  p.square_meter;
-      cell2.innerHTML = p.pyeong;
-
-      cell1.style.textAlign = "right";
-      cell2.style.textAlign = "right";
-
-      // var element = document.getElementById("mTop");
-      // element.appendChild(tr_node);
-
-    
-      // node.appendChild(textnode);
-      // node.classList.add("list-group-item");
-      // var element = document.getElementById("mTop");
-      // element.appendChild(node);
+    for(let i = 0; i < key_array.length; i++){
+      key_array[i] = Number(key_array[i].replace('\u33A1', ''))
     }
 
+    key_array.sort(function(a, b) {
+      return a - b;
+    });
+    
+    key_array.forEach(function(element) {
+        var table = document.getElementById("myTable");
+        var row = table.insertRow(-1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+
+        cell1.innerHTML = element;
+
+        cell2.innerHTML = mTop_dict[String(element)+'\u33A1'];
+        cell1.innerHTML = cell1.innerHTML+'\u33A1';
+
+        cell1.style.textAlign = "right";
+        cell2.style.textAlign = "right";
+
+    });
     
   }
+
 });
 
 function onWindowLoad() {

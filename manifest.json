@@ -1,11 +1,12 @@
 {
-    "name": "Get pages source",
+    "name": "몇평이야?",
     "version": "1.0",
     "manifest_version": 2,
-    "description": "Get pages source from a popup",
+    "description": "Convert meter square to pyeong",
     "browser_action": {
       "default_icon": "images/icon.png",
       "default_popup": "popup.html"
     },
-    "permissions": ["tabs", "<all_urls>"]
+    
+    "permissions": ["activeTab"]
   }
